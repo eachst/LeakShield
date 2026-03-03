@@ -2,8 +2,9 @@
 
 > 轻量级机器学习数据泄露检测库 - 三行代码，守护模型可信度
 
-[![CI](https://github.com/yourusername/leakshield/workflows/CI/badge.svg)](https://github.com/yourusername/leakshield/actions)
-[![Python Version](https://img.shields.io/pypi/pyversions/leakshield)](https://pypi.org/project/leakshield/)
+[![Tests](https://img.shields.io/badge/tests-24%20passed-success)](https://github.com/yourusername/leakshield/actions)
+[![Coverage](https://img.shields.io/badge/coverage-67%25-yellow)](https://github.com/yourusername/leakshield)
+[![Python](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ## 一句话介绍
@@ -61,27 +62,38 @@ result.report()
 
 ## 支持的检测类型
 
-| 类型 | 描述 | 状态 |
-|------|------|------|
-| L1 | 特征分布偏移 | ✅ 已实现（Wasserstein + KS 检验） |
-| L2 | 预处理信息泄露 | ❌ 不支持（需代码分析） |
-| L3 | 特征-标签关联泄露 | ✅ 已实现（互信息检测） |
-| L4 | 样本重叠（精确/近似） | ✅ 已实现 |
-| L5 | 预测目标泄露 | ✅ 已实现（互信息/相关系数） |
-| L6 | 时序数据泄露 | ✅ 已实现 |
-| L7 | 模型迭代泄露 | ❌ 不支持（超出数据层范畴） |
-| L8 | 评估流程泄露 | ❌ 不支持（需代码分析） |
+基于 [Kapoor & Narayanan (2023)](https://doi.org/10.1016/j.patter.2023.100804) 的八类数据泄露分类法：
+
+| 编号 | 泄露类型 | 状态 | 引擎 | 说明 |
+|------|---------|------|------|------|
+| L1 | 预处理未先分割 | ✅ v0.2 | MDF | Wasserstein + KS 检验 |
+| L2 | 使用不合法特征 | ⏳ 计划中 | - | 需要领域知识 |
+| L3 | 特征工程穿越 | ✅ v0.2 | MDF | 通过 L1 分布偏移检测 |
+| L4 | 样本重复 | ✅ v0.1 | Hash | SHA-256 + MinHash |
+| L5 | 标签泄露 | ✅ v0.2 | MDF | 互信息 + 相关系数 |
+| L6 | 时序穿越 | ✅ v0.2 | MDF | 时间范围校验 |
+| L7 | 多重比较泄露 | ❌ 暂不支持 | - | 超出数据层范畴 |
+| L8 | 概念漂移 | ❌ 暂不支持 | - | 需要代码分析 |
+
+**当前版本 (v0.2.0) 支持**: L1, L3, L4, L5, L6
 
 ## 与竞品对比
 
-| 工具 | 定位 | 检测层面 | 易用性 | LeakShield 优势 |
-|------|------|----------|--------|----------------|
-| **deepchecks** | 全面数据验证 | 数据质量 + 部分泄露 | 中等 | 专注泄露检测，更轻量 |
-| **Evidently** | 模型监控 | 分布漂移 + 性能监控 | 中等 | 专注训练时泄露，非生产监控 |
-| **LeakageDetector** | 代码静态分析 | 代码层（AST） | 高 | 互补工具（数据层 vs 代码层） |
-| **LeakShield** | 数据泄露检测 | 数据层（DataFrame） | 极高 | 三行代码，统一报告，分类法对齐 |
+| 工具 | 检测层次 | 使用方式 | 统一评分 | LeakShield 优势 |
+|------|---------|---------|---------|----------------|
+| **deepchecks** | 数据层 | Dataset 对象 | 无 | 专注泄露检测，更轻量 |
+| **Evidently** | 数据层 | Report 对象 | 无 | 专注训练时泄露，非生产监控 |
+| **LeakageDetector** | 代码层 | VS Code 插件 | 无 | 互补工具（数据层 vs 代码层） |
+| **LeakShield** | 数据层 | 直接传 DataFrame | 有 | 三行代码，统一报告，分类法对齐 |
 
-注：LeakageDetector 是互补工具而非竞品，建议同时使用以覆盖代码层和数据层。
+**注**: LeakageDetector 是互补工具而非竞品，建议同时使用以覆盖代码层和数据层。
+
+### 详细对比
+
+- **deepchecks**: 全面的数据验证框架，包含数据质量、模型评估等多个模块，但泄露检测不是核心功能
+- **Evidently**: 专注于生产环境的模型监控和数据漂移检测，适合部署后使用
+- **LeakageDetector**: 通过静态代码分析检测代码层泄露（如变量使用顺序错误），与 LeakShield 形成完美互补
+- **LeakShield**: 专注于训练时的数据层泄露检测，轻量级，易于集成到训练流程中
 
 ## 命令行使用
 
@@ -134,6 +146,21 @@ result = ls.check(train_df, test_df, config)
 result.report()
 ```
 
+## 性能基准测试
+
+LeakShield 在标准数据集上的检测性能：
+
+| 数据集 | 样本数 | 特征数 | 检测耗时 | 检出率 |
+|--------|--------|--------|---------|--------|
+| Iris | 150 | 4 | <1s | 100% |
+| Breast Cancer | 569 | 30 | ~65s | 100% |
+| Diabetes | 442 | 10 | <1s | 检测中 |
+| Wine | 178 | 13 | ~29s | 检测中 |
+
+详细基准测试报告见 [BENCHMARK.md](BENCHMARK.md)
+
+**注**: 基准测试使用 sklearn 数据集并人工注入泄露，测试环境为 Python 3.14.0。
+
 ## 开发路线图
 
 ### 第一阶段（v0.1.0）✅
@@ -161,7 +188,11 @@ result.report()
 
 ## 参考文献
 
-- Kapoor, S., & Narayanan, A. (2023). Leakage and the Reproducibility Crisis in ML-based Science. *Patterns*, 4(9), 100804. [https://doi.org/10.1016/j.patter.2023.100804](https://doi.org/10.1016/j.patter.2023.100804)
+1. Kapoor, S., & Narayanan, A. (2023). Leakage and the Reproducibility Crisis in ML-based Science. *Patterns*, 4(9), 100804. [https://doi.org/10.1016/j.patter.2023.100804](https://doi.org/10.1016/j.patter.2023.100804) | [PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC10499856/)
+
+2. Eljundi, M., Dhillon, A., Agarwal, A., & Chehab, A. (2025). Data leakage in deep learning studies of translational EEG. *PeerJ Computer Science*, 11, e2730. [https://doi.org/10.7717/peerj-cs.2730](https://doi.org/10.7717/peerj-cs.2730)
+
+3. Hyun, M., Lee, S., & Ryu, D. (2025). LeakageDetector: Detecting Information Leakage Bugs in Machine Learning Pipelines. *IEEE SANER 2025*.
 
 ## 贡献
 

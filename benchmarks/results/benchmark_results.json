@@ -1,0 +1,487 @@
+{
+  "metadata": {
+    "timestamp": "2026-03-03 23:06:02",
+    "python_version": "3.14.0",
+    "leakshield_version": "0.2.0",
+    "dependencies": {
+      "pandas": "3.0.1",
+      "numpy": "2.3.5",
+      "scipy": "1.16.3",
+      "scikit-learn": "1.8.0"
+    }
+  },
+  "results": [
+    {
+      "name": "iris_L4_10pct",
+      "base_dataset": "iris",
+      "inject_type": "exact_overlap",
+      "expected_level": "high",
+      "detected_level": "high",
+      "match": true,
+      "elapsed_time": 8.4682457447052,
+      "num_items": 9,
+      "items": [
+        {
+          "type": "L4_exact_duplicate",
+          "level": "high",
+          "score": 0.7555555555555555
+        },
+        {
+          "type": "L4_near_duplicate",
+          "level": "high",
+          "score": 0.7055555555555556
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4394204359847722
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "high",
+          "score": 0.8778008694640225
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "high",
+          "score": 0.7966387601775545
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "high",
+          "score": 0.7824599866182269
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.9487431992345453
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.95
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.95
+        }
+      ]
+    },
+    {
+      "name": "iris_L4_1pct",
+      "base_dataset": "iris",
+      "inject_type": "exact_overlap",
+      "expected_level": "low",
+      "detected_level": "high",
+      "match": false,
+      "elapsed_time": 8.267406463623047,
+      "num_items": 9,
+      "items": [
+        {
+          "type": "L4_exact_duplicate",
+          "level": "medium",
+          "score": 0.39444444444444443
+        },
+        {
+          "type": "L4_near_duplicate",
+          "level": "medium",
+          "score": 0.34444444444444444
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4305396392602572
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "high",
+          "score": 0.8911264164259942
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "high",
+          "score": 0.8172080840120867
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "high",
+          "score": 0.7985654527545993
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.9487431992345453
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.95
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.95
+        }
+      ]
+    },
+    {
+      "name": "cancer_L5",
+      "base_dataset": "breast_cancer",
+      "inject_type": "label_as_feature",
+      "expected_level": "high",
+      "detected_level": "high",
+      "match": true,
+      "elapsed_time": 65.36057353019714,
+      "num_items": 32,
+      "items": [
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.46457539011688864
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.41771368489510996
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "high",
+          "score": 0.7805091909895805
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4189031636806301
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.44535178499565864
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4455752581428825
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4223898973654523
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.44388764919576107
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4187185006727322
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4344731394891932
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.41569397888743
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4329830087821033
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "high",
+          "score": 0.7805900171263651
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4334480063172139
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.44101971164131626
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.45359213636791385
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.43475700252995214
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.42138030104149576
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4532330053122815
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4250802152495963
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.863050485481574
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.88527811301669
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.8651760470394688
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.8846343155559213
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.9214118975020051
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.8593201753676544
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.9191876391859264
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.9268462379343022
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.9197206161434365
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.8580722311084484
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.9224459666869534
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.95
+        }
+      ]
+    },
+    {
+      "name": "diabetes_L1",
+      "base_dataset": "diabetes",
+      "inject_type": "global_scaling",
+      "expected_level": "medium",
+      "detected_level": "high",
+      "match": false,
+      "elapsed_time": 0.3428826332092285,
+      "num_items": 9,
+      "items": [
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4423678856570143
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "high",
+          "score": 0.8050484427017346
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.43985861748778426
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.443934842555653
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4211034598592277
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4476058186471896
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4537130172164701
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4571755296151276
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "high",
+          "score": 0.8073412523485975
+        }
+      ]
+    },
+    {
+      "name": "timeseries_L6",
+      "base_dataset": "synthetic",
+      "inject_type": "temporal_overlap",
+      "expected_level": "high",
+      "detected_level": "error",
+      "match": false,
+      "elapsed_time": 0,
+      "num_items": 0,
+      "items": [],
+      "error": "test_df 不能为空"
+    },
+    {
+      "name": "wine_clean",
+      "base_dataset": "wine",
+      "inject_type": null,
+      "expected_level": "clean",
+      "detected_level": "high",
+      "match": false,
+      "elapsed_time": 28.512946128845215,
+      "num_items": 21,
+      "items": [
+        {
+          "type": "L1_distribution_shift",
+          "level": "high",
+          "score": 0.8015265825854377
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "high",
+          "score": 0.8053978176862125
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "high",
+          "score": 0.810970845163983
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "high",
+          "score": 0.7840524321010194
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "high",
+          "score": 0.8337280181752325
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "high",
+          "score": 0.7931007297638567
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.43452421401399294
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4413378705104764
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4557142645583093
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "high",
+          "score": 0.7845033004010475
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.44820888260130104
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4349139199955312
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4617154350803349
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.9074521311544086
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.8983813451194416
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.95
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.8857473372210573
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.95
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.95
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.95
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.95
+        }
+      ]
+    }
+  ]
+}
