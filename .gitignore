@@ -45,11 +45,7 @@ Thumbs.db
 *.docx
 ~$*
 
-# Reports
-*_report.md
-!README.md
-!CHANGELOG.md
-!FEATURES.md
-!IMAGE_LEAKAGE_DETECTION.md
-!PROJECT_SUMMARY.md
-!LEAKAGE_DETECTION_SUMMARY.md
+# Reports (exclude generated reports, keep documentation)
+plant_disease_leakage_report.md
+leakage_report_*.md
+
