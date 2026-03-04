@@ -2,14 +2,15 @@
 
 > 轻量级机器学习数据泄露检测库 - 三行代码，守护模型可信度
 
-[![Tests](https://img.shields.io/badge/tests-24%20passed-success)](https://github.com/yourusername/leakshield/actions)
-[![Coverage](https://img.shields.io/badge/coverage-67%25-yellow)](https://github.com/yourusername/leakshield)
+[![Tests](https://img.shields.io/badge/tests-33%20passed-success)](https://github.com/eachst/LeakShield)
+[![Coverage](https://img.shields.io/badge/coverage-71%25-yellow)](https://github.com/eachst/LeakShield)
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-0.3.0-green)](https://github.com/eachst/LeakShield/releases)
 
 ## 一句话介绍
 
-LeakShield 是一个专注于数据层的机器学习泄露检测库，基于 Kapoor & Narayanan (2023) 提出的八类数据泄露分类法，通过分析 DataFrame 的分布、重叠和关联来识别潜在的数据泄露风险。
+LeakShield 是一个专注于数据层的机器学习泄露检测库，基于 Kapoor & Narayanan (2023) 提出的八类数据泄露分类法，支持**表格数据**和**图像数据**的泄露检测。
 
 ## 为什么需要它？
 
@@ -17,6 +18,7 @@ LeakShield 是一个专注于数据层的机器学习泄露检测库，基于 Ka
 
 常见的数据泄露场景：
 - 训练集和测试集存在样本重叠（L4）
+- 图像数据集中存在重复或相似图像（L4）
 - 特征分布在训练/测试集间异常偏移（L1）
 - 特征与标签的关联在测试集中泄露（L3/L5）
 - 时序数据的时间边界处理不当（L6）
@@ -26,10 +28,16 @@ LeakShield 专注于这些数据层检测，与代码静态分析工具（如 Le
 ## 安装
 
 ```bash
+# 基础安装（表格数据检测）
 pip install leakshield
+
+# 完整安装（包含图像检测）
+pip install leakshield[image]
 ```
 
 ## 快速开始
+
+### 表格数据检测
 
 三行代码完成检测：
 
@@ -38,6 +46,22 @@ import leakshield as ls
 
 result = ls.check(train_df, test_df)
 result.report()
+```
+
+### 图像数据检测 🆕
+
+```python
+import leakshield as ls
+
+# 方式 1: 使用目录路径
+result = ls.check("dataset/train", "dataset/test")
+result.report()
+
+# 方式 2: 使用路径列表
+from pathlib import Path
+train_images = list(Path("dataset/train").glob("*.jpg"))
+test_images = list(Path("dataset/test").glob("*.jpg"))
+result = ls.check(train_images, test_images)
 ```
 
 输出示例：
@@ -69,13 +93,14 @@ result.report()
 | L1 | 预处理未先分割 | ✅ v0.2 | MDF | Wasserstein + KS 检验 |
 | L2 | 使用不合法特征 | ⏳ 计划中 | - | 需要领域知识 |
 | L3 | 特征工程穿越 | ✅ v0.2 | MDF | 通过 L1 分布偏移检测 |
-| L4 | 样本重复 | ✅ v0.1 | Hash | SHA-256 + MinHash |
+| L4 | 样本重复（表格） | ✅ v0.1 | Hash | SHA-256 + MinHash |
+| L4 | 图像重复 | ✅ v0.3 | Image | 文件哈希 + 感知哈希 |
 | L5 | 标签泄露 | ✅ v0.2 | MDF | 互信息 + 相关系数 |
 | L6 | 时序穿越 | ✅ v0.2 | MDF | 时间范围校验 |
 | L7 | 多重比较泄露 | ❌ 暂不支持 | - | 超出数据层范畴 |
 | L8 | 概念漂移 | ❌ 暂不支持 | - | 需要代码分析 |
 
-**当前版本 (v0.2.0) 支持**: L1, L3, L4, L5, L6
+**当前版本 (v0.3.0) 支持**: L1, L3, L4 (表格+图像), L5, L6
 
 ## 与竞品对比
 
