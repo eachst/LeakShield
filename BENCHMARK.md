@@ -2,7 +2,7 @@
 
 ## 测试环境
 
-- **测试时间**: 2026-03-03 23:06:02
+- **测试时间**: 2026-03-04 11:58:30
 - **Python 版本**: 3.14.0
 - **LeakShield 版本**: 0.2.0
 - **关键依赖**:
@@ -15,18 +15,18 @@
 
 | 测试用例 | 基础数据集 | 注入类型 | 预期等级 | 检测等级 | 匹配 | 耗时(s) |
 |----------|-----------|---------|---------|---------|------|--------|
-| iris_L4_10pct | iris | exact_overlap | high | high | ✅ | 8.468 |
-| iris_L4_1pct | iris | exact_overlap | low | high | ❌ | 8.267 |
-| cancer_L5 | breast_cancer | label_as_feature | high | high | ✅ | 65.361 |
-| diabetes_L1 | diabetes | global_scaling | medium | high | ❌ | 0.343 |
-| timeseries_L6 | synthetic | temporal_overlap | high | error | ❌ | 0.000 |
-| wine_clean | wine | None | clean | high | ❌ | 28.513 |
+| iris_L4_10pct | iris | exact_overlap | high | high | ✅ | 6.018 |
+| iris_L4_1pct | iris | exact_overlap | low | high | ❌ | 6.050 |
+| cancer_L5 | breast_cancer | label_as_feature | high | high | ✅ | 51.772 |
+| diabetes_L1 | diabetes | global_scaling | medium | high | ❌ | 0.281 |
+| timeseries_L6 | synthetic | temporal_overlap | high | high | ✅ | 3.289 |
+| wine_clean | wine | None | clean | low | ❌ | 19.963 |
 
 ## 总体检出率
 
 - **总测试数**: 6
-- **匹配数**: 2
-- **检出率**: 33.3%
+- **匹配数**: 3
+- **检出率**: 50.0%
 
 ## 详细结果
 
@@ -37,18 +37,15 @@
 - **预期等级**: high
 - **检测等级**: high
 - **匹配**: ✅ 是
-- **检测耗时**: 8.468s
-- **检测项数**: 9
+- **检测耗时**: 6.018s
+- **检测项数**: 6
 
 **检测到的泄露**:
 
 - L4_exact_duplicate (风险等级: high, 分数: 0.76)
 - L4_near_duplicate (风险等级: high, 分数: 0.71)
-- L1_distribution_shift (风险等级: medium, 分数: 0.44)
-- L1_distribution_shift (风险等级: high, 分数: 0.88)
-- L1_distribution_shift (风险等级: high, 分数: 0.80)
-- L1_distribution_shift (风险等级: high, 分数: 0.78)
-- L5_label_leakage (风险等级: high, 分数: 0.95)
+- L1_distribution_shift (风险等级: high, 分数: 0.90)
+- L1_distribution_shift (风险等级: medium, 分数: 0.53)
 - L5_label_leakage (风险等级: high, 分数: 0.95)
 - L5_label_leakage (风险等级: high, 分数: 0.95)
 
@@ -59,18 +56,15 @@
 - **预期等级**: low
 - **检测等级**: high
 - **匹配**: ❌ 否
-- **检测耗时**: 8.267s
-- **检测项数**: 9
+- **检测耗时**: 6.050s
+- **检测项数**: 6
 
 **检测到的泄露**:
 
 - L4_exact_duplicate (风险等级: medium, 分数: 0.39)
 - L4_near_duplicate (风险等级: medium, 分数: 0.34)
-- L1_distribution_shift (风险等级: medium, 分数: 0.43)
-- L1_distribution_shift (风险等级: high, 分数: 0.89)
-- L1_distribution_shift (风险等级: high, 分数: 0.82)
-- L1_distribution_shift (风险等级: high, 分数: 0.80)
-- L5_label_leakage (风险等级: high, 分数: 0.95)
+- L1_distribution_shift (风险等级: medium, 分数: 0.66)
+- L1_distribution_shift (风险等级: medium, 分数: 0.54)
 - L5_label_leakage (风险等级: high, 分数: 0.95)
 - L5_label_leakage (风险等级: high, 分数: 0.95)
 
@@ -81,42 +75,24 @@
 - **预期等级**: high
 - **检测等级**: high
 - **匹配**: ✅ 是
-- **检测耗时**: 65.361s
-- **检测项数**: 32
+- **检测耗时**: 51.772s
+- **检测项数**: 14
 
 **检测到的泄露**:
 
 - L1_distribution_shift (风险等级: medium, 分数: 0.46)
-- L1_distribution_shift (风险等级: medium, 分数: 0.42)
-- L1_distribution_shift (风险等级: high, 分数: 0.78)
-- L1_distribution_shift (风险等级: medium, 分数: 0.42)
+- L1_distribution_shift (风险等级: medium, 分数: 0.48)
 - L1_distribution_shift (风险等级: medium, 分数: 0.45)
 - L1_distribution_shift (风险等级: medium, 分数: 0.45)
-- L1_distribution_shift (风险等级: medium, 分数: 0.42)
 - L1_distribution_shift (风险等级: medium, 分数: 0.44)
-- L1_distribution_shift (风险等级: medium, 分数: 0.42)
 - L1_distribution_shift (风险等级: medium, 分数: 0.43)
-- L1_distribution_shift (风险等级: medium, 分数: 0.42)
 - L1_distribution_shift (风险等级: medium, 分数: 0.43)
-- L1_distribution_shift (风险等级: high, 分数: 0.78)
+- L1_distribution_shift (风险等级: medium, 分数: 0.48)
 - L1_distribution_shift (风险等级: medium, 分数: 0.43)
 - L1_distribution_shift (风险等级: medium, 分数: 0.44)
 - L1_distribution_shift (风险等级: medium, 分数: 0.45)
 - L1_distribution_shift (风险等级: medium, 分数: 0.43)
-- L1_distribution_shift (风险等级: medium, 分数: 0.42)
 - L1_distribution_shift (风险等级: medium, 分数: 0.45)
-- L1_distribution_shift (风险等级: medium, 分数: 0.43)
-- L5_label_leakage (风险等级: high, 分数: 0.86)
-- L5_label_leakage (风险等级: high, 分数: 0.89)
-- L5_label_leakage (风险等级: high, 分数: 0.87)
-- L5_label_leakage (风险等级: high, 分数: 0.88)
-- L5_label_leakage (风险等级: high, 分数: 0.92)
-- L5_label_leakage (风险等级: high, 分数: 0.86)
-- L5_label_leakage (风险等级: high, 分数: 0.92)
-- L5_label_leakage (风险等级: high, 分数: 0.93)
-- L5_label_leakage (风险等级: high, 分数: 0.92)
-- L5_label_leakage (风险等级: high, 分数: 0.86)
-- L5_label_leakage (风险等级: high, 分数: 0.92)
 - L5_label_leakage (风险等级: high, 分数: 0.95)
 
 ### diabetes_L1
@@ -126,8 +102,8 @@
 - **预期等级**: medium
 - **检测等级**: high
 - **匹配**: ❌ 否
-- **检测耗时**: 0.343s
-- **检测项数**: 9
+- **检测耗时**: 0.281s
+- **检测项数**: 8
 
 **检测到的泄露**:
 
@@ -135,7 +111,6 @@
 - L1_distribution_shift (风险等级: high, 分数: 0.81)
 - L1_distribution_shift (风险等级: medium, 分数: 0.44)
 - L1_distribution_shift (风险等级: medium, 分数: 0.44)
-- L1_distribution_shift (风险等级: medium, 分数: 0.42)
 - L1_distribution_shift (风险等级: medium, 分数: 0.45)
 - L1_distribution_shift (风险等级: medium, 分数: 0.45)
 - L1_distribution_shift (风险等级: medium, 分数: 0.46)
@@ -146,50 +121,40 @@
 - **基础数据集**: synthetic
 - **注入类型**: temporal_overlap
 - **预期等级**: high
-- **检测等级**: error
-- **匹配**: ❌ 否
-- **检测耗时**: 0.000s
-- **检测项数**: 0
+- **检测等级**: high
+- **匹配**: ✅ 是
+- **检测耗时**: 3.289s
+- **检测项数**: 4
+
+**检测到的泄露**:
+
+- L4_exact_duplicate (风险等级: high, 分数: 0.90)
+- L4_near_duplicate (风险等级: high, 分数: 0.85)
+- L1_distribution_shift (风险等级: medium, 分数: 0.52)
+- L6_temporal_leakage (风险等级: high, 分数: 0.90)
 
 ### wine_clean
 
 - **基础数据集**: wine
 - **注入类型**: None (clean)
 - **预期等级**: clean
-- **检测等级**: high
+- **检测等级**: low
 - **匹配**: ❌ 否
-- **检测耗时**: 28.513s
-- **检测项数**: 21
+- **检测耗时**: 19.963s
+- **检测项数**: 4
 
 **检测到的泄露**:
 
-- L1_distribution_shift (风险等级: high, 分数: 0.80)
-- L1_distribution_shift (风险等级: high, 分数: 0.81)
-- L1_distribution_shift (风险等级: high, 分数: 0.81)
-- L1_distribution_shift (风险等级: high, 分数: 0.78)
-- L1_distribution_shift (风险等级: high, 分数: 0.83)
-- L1_distribution_shift (风险等级: high, 分数: 0.79)
-- L1_distribution_shift (风险等级: medium, 分数: 0.43)
-- L1_distribution_shift (风险等级: medium, 分数: 0.44)
-- L1_distribution_shift (风险等级: medium, 分数: 0.46)
-- L1_distribution_shift (风险等级: high, 分数: 0.78)
-- L1_distribution_shift (风险等级: medium, 分数: 0.45)
-- L1_distribution_shift (风险等级: medium, 分数: 0.43)
-- L1_distribution_shift (风险等级: medium, 分数: 0.46)
-- L5_label_leakage (风险等级: high, 分数: 0.91)
-- L5_label_leakage (风险等级: high, 分数: 0.90)
-- L5_label_leakage (风险等级: high, 分数: 0.95)
-- L5_label_leakage (风险等级: high, 分数: 0.89)
-- L5_label_leakage (风险等级: high, 分数: 0.95)
-- L5_label_leakage (风险等级: high, 分数: 0.95)
-- L5_label_leakage (风险等级: high, 分数: 0.95)
-- L5_label_leakage (风险等级: high, 分数: 0.95)
+- L1_distribution_shift (风险等级: medium, 分数: 0.51)
+- L1_distribution_shift (风险等级: medium, 分数: 0.52)
+- L1_distribution_shift (风险等级: medium, 分数: 0.53)
+- L1_distribution_shift (风险等级: medium, 分数: 0.56)
 
 ## 与竞品对比
 
 | 工具 | L1 | L4 | L5 | L6 | 总体检出率 |
 |------|----|----|----|----|----------|
-| LeakShield | ✅ | ✅ | ✅ | ✅ | 33.3% |
+| LeakShield | ✅ | ✅ | ✅ | ✅ | 50.0% |
 | deepchecks | - | - | - | - | 待测试 |
 | Evidently | - | - | - | - | 待测试 |
 
@@ -197,13 +162,13 @@
 
 ## 性能分析
 
-- **平均检测耗时**: 18.492s
-- **最快检测**: 0.000s
-- **最慢检测**: 65.361s
+- **平均检测耗时**: 14.562s
+- **最快检测**: 0.281s
+- **最慢检测**: 51.772s
 
 ## 结论
 
-LeakShield 在基准测试中检出率为 33.3%，需要进一步优化。
+LeakShield 在基准测试中检出率为 50.0%，需要进一步优化。
 
 ### 优势
 

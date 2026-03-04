@@ -82,13 +82,13 @@ class HashEngine(BaseEngine):
         affected_ratio = overlap_count / len(test_df)
 
         # 确定风险等级
-        if affected_ratio > 0.05:
+        if affected_ratio > 0.05:  # 5% 以上才是 high
             risk_level = "high"
             risk_score = min(0.9, 0.7 + affected_ratio * 0.5)
-        elif affected_ratio > 0.01:
+        elif affected_ratio > 0.01:  # 1-5% 是 medium
             risk_level = "medium"
             risk_score = 0.35 + affected_ratio * 2
-        else:
+        else:  # 1% 以下是 low
             risk_level = "low"
             risk_score = affected_ratio * 10
 

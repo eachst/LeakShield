@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "timestamp": "2026-03-03 23:06:02",
+    "timestamp": "2026-03-04 11:58:30",
     "python_version": "3.14.0",
     "leakshield_version": "0.2.0",
     "dependencies": {
@@ -18,8 +18,8 @@
       "expected_level": "high",
       "detected_level": "high",
       "match": true,
-      "elapsed_time": 8.4682457447052,
-      "num_items": 9,
+      "elapsed_time": 6.017862319946289,
+      "num_items": 6,
       "items": [
         {
           "type": "L4_exact_duplicate",
@@ -33,28 +33,13 @@
         },
         {
           "type": "L1_distribution_shift",
+          "level": "high",
+          "score": 0.9
+        },
+        {
+          "type": "L1_distribution_shift",
           "level": "medium",
-          "score": 0.4394204359847722
-        },
-        {
-          "type": "L1_distribution_shift",
-          "level": "high",
-          "score": 0.8778008694640225
-        },
-        {
-          "type": "L1_distribution_shift",
-          "level": "high",
-          "score": 0.7966387601775545
-        },
-        {
-          "type": "L1_distribution_shift",
-          "level": "high",
-          "score": 0.7824599866182269
-        },
-        {
-          "type": "L5_label_leakage",
-          "level": "high",
-          "score": 0.9487431992345453
+          "score": 0.5298240707119825
         },
         {
           "type": "L5_label_leakage",
@@ -75,8 +60,8 @@
       "expected_level": "low",
       "detected_level": "high",
       "match": false,
-      "elapsed_time": 8.267406463623047,
-      "num_items": 9,
+      "elapsed_time": 6.05005669593811,
+      "num_items": 6,
       "items": [
         {
           "type": "L4_exact_duplicate",
@@ -91,27 +76,12 @@
         {
           "type": "L1_distribution_shift",
           "level": "medium",
-          "score": 0.4305396392602572
+          "score": 0.6558022662815908
         },
         {
           "type": "L1_distribution_shift",
-          "level": "high",
-          "score": 0.8911264164259942
-        },
-        {
-          "type": "L1_distribution_shift",
-          "level": "high",
-          "score": 0.8172080840120867
-        },
-        {
-          "type": "L1_distribution_shift",
-          "level": "high",
-          "score": 0.7985654527545993
-        },
-        {
-          "type": "L5_label_leakage",
-          "level": "high",
-          "score": 0.9487431992345453
+          "level": "medium",
+          "score": 0.5375329344193387
         },
         {
           "type": "L5_label_leakage",
@@ -132,8 +102,8 @@
       "expected_level": "high",
       "detected_level": "high",
       "match": true,
-      "elapsed_time": 65.36057353019714,
-      "num_items": 32,
+      "elapsed_time": 51.7720410823822,
+      "num_items": 14,
       "items": [
         {
           "type": "L1_distribution_shift",
@@ -143,17 +113,7 @@
         {
           "type": "L1_distribution_shift",
           "level": "medium",
-          "score": 0.41771368489510996
-        },
-        {
-          "type": "L1_distribution_shift",
-          "level": "high",
-          "score": 0.7805091909895805
-        },
-        {
-          "type": "L1_distribution_shift",
-          "level": "medium",
-          "score": 0.4189031636806301
+          "score": 0.47881470558332884
         },
         {
           "type": "L1_distribution_shift",
@@ -168,17 +128,7 @@
         {
           "type": "L1_distribution_shift",
           "level": "medium",
-          "score": 0.4223898973654523
-        },
-        {
-          "type": "L1_distribution_shift",
-          "level": "medium",
           "score": 0.44388764919576107
-        },
-        {
-          "type": "L1_distribution_shift",
-          "level": "medium",
-          "score": 0.4187185006727322
         },
         {
           "type": "L1_distribution_shift",
@@ -188,17 +138,12 @@
         {
           "type": "L1_distribution_shift",
           "level": "medium",
-          "score": 0.41569397888743
-        },
-        {
-          "type": "L1_distribution_shift",
-          "level": "medium",
           "score": 0.4329830087821033
         },
         {
           "type": "L1_distribution_shift",
-          "level": "high",
-          "score": 0.7805900171263651
+          "level": "medium",
+          "score": 0.4789440274021842
         },
         {
           "type": "L1_distribution_shift",
@@ -223,72 +168,7 @@
         {
           "type": "L1_distribution_shift",
           "level": "medium",
-          "score": 0.42138030104149576
-        },
-        {
-          "type": "L1_distribution_shift",
-          "level": "medium",
           "score": 0.4532330053122815
-        },
-        {
-          "type": "L1_distribution_shift",
-          "level": "medium",
-          "score": 0.4250802152495963
-        },
-        {
-          "type": "L5_label_leakage",
-          "level": "high",
-          "score": 0.863050485481574
-        },
-        {
-          "type": "L5_label_leakage",
-          "level": "high",
-          "score": 0.88527811301669
-        },
-        {
-          "type": "L5_label_leakage",
-          "level": "high",
-          "score": 0.8651760470394688
-        },
-        {
-          "type": "L5_label_leakage",
-          "level": "high",
-          "score": 0.8846343155559213
-        },
-        {
-          "type": "L5_label_leakage",
-          "level": "high",
-          "score": 0.9214118975020051
-        },
-        {
-          "type": "L5_label_leakage",
-          "level": "high",
-          "score": 0.8593201753676544
-        },
-        {
-          "type": "L5_label_leakage",
-          "level": "high",
-          "score": 0.9191876391859264
-        },
-        {
-          "type": "L5_label_leakage",
-          "level": "high",
-          "score": 0.9268462379343022
-        },
-        {
-          "type": "L5_label_leakage",
-          "level": "high",
-          "score": 0.9197206161434365
-        },
-        {
-          "type": "L5_label_leakage",
-          "level": "high",
-          "score": 0.8580722311084484
-        },
-        {
-          "type": "L5_label_leakage",
-          "level": "high",
-          "score": 0.9224459666869534
         },
         {
           "type": "L5_label_leakage",
@@ -304,8 +184,8 @@
       "expected_level": "medium",
       "detected_level": "high",
       "match": false,
-      "elapsed_time": 0.3428826332092285,
-      "num_items": 9,
+      "elapsed_time": 0.2810702323913574,
+      "num_items": 8,
       "items": [
         {
           "type": "L1_distribution_shift",
@@ -326,11 +206,6 @@
           "type": "L1_distribution_shift",
           "level": "medium",
           "score": 0.443934842555653
-        },
-        {
-          "type": "L1_distribution_shift",
-          "level": "medium",
-          "score": 0.4211034598592277
         },
         {
           "type": "L1_distribution_shift",
@@ -359,127 +234,62 @@
       "base_dataset": "synthetic",
       "inject_type": "temporal_overlap",
       "expected_level": "high",
-      "detected_level": "error",
-      "match": false,
-      "elapsed_time": 0,
-      "num_items": 0,
-      "items": [],
-      "error": "test_df 不能为空"
+      "detected_level": "high",
+      "match": true,
+      "elapsed_time": 3.289348840713501,
+      "num_items": 4,
+      "items": [
+        {
+          "type": "L4_exact_duplicate",
+          "level": "high",
+          "score": 0.9
+        },
+        {
+          "type": "L4_near_duplicate",
+          "level": "high",
+          "score": 0.85
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.5170488388468748
+        },
+        {
+          "type": "L6_temporal_leakage",
+          "level": "high",
+          "score": 0.9
+        }
+      ]
     },
     {
       "name": "wine_clean",
       "base_dataset": "wine",
       "inject_type": null,
       "expected_level": "clean",
-      "detected_level": "high",
+      "detected_level": "low",
       "match": false,
-      "elapsed_time": 28.512946128845215,
-      "num_items": 21,
+      "elapsed_time": 19.963172912597656,
+      "num_items": 4,
       "items": [
         {
           "type": "L1_distribution_shift",
-          "level": "high",
-          "score": 0.8015265825854377
-        },
-        {
-          "type": "L1_distribution_shift",
-          "level": "high",
-          "score": 0.8053978176862125
-        },
-        {
-          "type": "L1_distribution_shift",
-          "level": "high",
-          "score": 0.810970845163983
-        },
-        {
-          "type": "L1_distribution_shift",
-          "level": "high",
-          "score": 0.7840524321010194
-        },
-        {
-          "type": "L1_distribution_shift",
-          "level": "high",
-          "score": 0.8337280181752325
-        },
-        {
-          "type": "L1_distribution_shift",
-          "level": "high",
-          "score": 0.7931007297638567
+          "level": "medium",
+          "score": 0.5124425321367004
         },
         {
           "type": "L1_distribution_shift",
           "level": "medium",
-          "score": 0.43452421401399294
+          "score": 0.5186365082979402
         },
         {
           "type": "L1_distribution_shift",
           "level": "medium",
-          "score": 0.4413378705104764
+          "score": 0.5275533522623728
         },
         {
           "type": "L1_distribution_shift",
           "level": "medium",
-          "score": 0.4557142645583093
-        },
-        {
-          "type": "L1_distribution_shift",
-          "level": "high",
-          "score": 0.7845033004010475
-        },
-        {
-          "type": "L1_distribution_shift",
-          "level": "medium",
-          "score": 0.44820888260130104
-        },
-        {
-          "type": "L1_distribution_shift",
-          "level": "medium",
-          "score": 0.4349139199955312
-        },
-        {
-          "type": "L1_distribution_shift",
-          "level": "medium",
-          "score": 0.4617154350803349
-        },
-        {
-          "type": "L5_label_leakage",
-          "level": "high",
-          "score": 0.9074521311544086
-        },
-        {
-          "type": "L5_label_leakage",
-          "level": "high",
-          "score": 0.8983813451194416
-        },
-        {
-          "type": "L5_label_leakage",
-          "level": "high",
-          "score": 0.95
-        },
-        {
-          "type": "L5_label_leakage",
-          "level": "high",
-          "score": 0.8857473372210573
-        },
-        {
-          "type": "L5_label_leakage",
-          "level": "high",
-          "score": 0.95
-        },
-        {
-          "type": "L5_label_leakage",
-          "level": "high",
-          "score": 0.95
-        },
-        {
-          "type": "L5_label_leakage",
-          "level": "high",
-          "score": 0.95
-        },
-        {
-          "type": "L5_label_leakage",
-          "level": "high",
-          "score": 0.95
+          "score": 0.563964829080372
         }
       ]
     }

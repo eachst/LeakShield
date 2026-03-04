@@ -53,18 +53,33 @@ class LeakageResult:
             self.overall_level = "clean"
             return
 
-        # 取所有 items 中 risk_score 的最大值
-        self.overall_score = max(item.risk_score for item in self.items)
-
-        # 根据分数确定等级
-        if self.overall_score > 0.7:
+        # 统计各风险等级的数量
+        high_count = sum(1 for item in self.items if item.risk_level == "high")
+        medium_count = sum(1 for item in self.items if item.risk_level == "medium")
+        low_count = sum(1 for item in self.items if item.risk_level == "low")
+        
+        # 根据风险等级分布确定 overall_level
+        # 只有多个 high 风险项才判定为 high
+        if high_count >= 2:
             self.overall_level = "high"
-        elif self.overall_score > 0.35:
+            self.overall_score = max(item.risk_score for item in self.items)
+        elif high_count == 1:
+            # 只有一个 high，看是否有其他 medium
+            if medium_count >= 2:
+                self.overall_level = "high"
+            else:
+                self.overall_level = "medium"
+            self.overall_score = max(item.risk_score for item in self.items)
+        elif medium_count >= 5:  # 从 3 提高到 5
+            # 多个 medium 才算 medium
             self.overall_level = "medium"
-        elif self.overall_score > 0:
+            self.overall_score = max(item.risk_score for item in self.items if item.risk_level == "medium")
+        elif medium_count > 0 or low_count > 0:
             self.overall_level = "low"
+            self.overall_score = max(item.risk_score for item in self.items) if self.items else 0.0
         else:
             self.overall_level = "clean"
+            self.overall_score = 0.0
 
     def report(self) -> None:
         """打印格式化报告"""

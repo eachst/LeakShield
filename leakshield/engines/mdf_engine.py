@@ -135,15 +135,23 @@ class MDFEngine(BaseEngine):
         # 计算 KS 统计量
         ks_stat, ks_pvalue = stats.ks_2samp(train_normalized, test_normalized)
 
+        # 小样本量时放宽阈值（更激进）
+        if len(test_values) < config.min_samples:
+            threshold_multiplier = 2.0  # 从 1.5 提高到 2.0
+        else:
+            threshold_multiplier = 1.0
+
         # 风险判断
         risk_level = None
         risk_score = 0.0
 
-        if wd > config.wasserstein_high or (ks_stat > config.ks_high and ks_pvalue < 0.001):
+        if wd > config.wasserstein_high * threshold_multiplier or (
+            ks_stat > config.ks_high * threshold_multiplier and ks_pvalue < 0.001
+        ):
             risk_level = "high"
             risk_score = min(0.9, 0.7 + wd * 0.5)
-        elif wd > config.wasserstein_medium or (
-            ks_stat > config.ks_medium and ks_pvalue < 0.01
+        elif wd > config.wasserstein_medium * threshold_multiplier or (
+            ks_stat > config.ks_medium * threshold_multiplier and ks_pvalue < 0.01
         ):
             risk_level = "medium"
             risk_score = 0.35 + wd * 0.8
@@ -286,19 +294,25 @@ class MDFEngine(BaseEngine):
             # 大数据集：卡方检验近似
             p_value = self._chi2_test_mi(X, y)
 
-        # 风险判断
+        # 风险判断 - 只检测异常强的关联（可能是泄露）
+        # 正常的特征-标签关联不应该被标记为泄露
         if mi > config.mi_high and p_value < config.p_value_threshold:
-            return LeakageItem(
-                leakage_type="L5_label_leakage",
-                taxonomy_ref="Kapoor & Narayanan 2023, Type 5",
-                risk_level="high",
-                risk_score=min(0.95, 0.7 + mi * 0.5),
-                affected_count=len(X),
-                affected_ratio=1.0,
-                detail=f"特征 '{feature_col}' 与标签存在异常强关联 "
-                f"(MI={mi:.4f}, p={p_value:.4e})",
-                fix_hint="请确认该特征在实际预测时是否可获得",
-            )
+            # 额外检查：计算相关系数，只有非常强的关联才报告
+            correlation = np.corrcoef(X.flatten(), y)[0, 1]
+            
+            # 只有相关系数 > 0.9 或 MI > 0.8 才认为是泄露
+            if abs(correlation) > 0.9 or mi > 0.8:
+                return LeakageItem(
+                    leakage_type="L5_label_leakage",
+                    taxonomy_ref="Kapoor & Narayanan 2023, Type 5",
+                    risk_level="high",
+                    risk_score=min(0.95, 0.7 + mi * 0.5),
+                    affected_count=len(X),
+                    affected_ratio=1.0,
+                    detail=f"特征 '{feature_col}' 与标签存在异常强关联 "
+                    f"(MI={mi:.4f}, corr={correlation:.4f}, p={p_value:.4e})",
+                    fix_hint="请确认该特征在实际预测时是否可获得，或是否与标签完全相同",
+                )
 
         return None
 

@@ -143,8 +143,11 @@ def inject_temporal_overlap(
     # 训练集：前 300 天
     train_df = train_df.iloc[:300].copy()
 
-    # 测试集：从第 (300 - days) 天开始，重叠 days 天
-    test_df = test_df.iloc[300 - days :].copy()
+    # 测试集：从第 (300 - days) 天开始，共 65 天，确保有重叠
+    # 例如 days=30 时，测试集是 270-335 天，与训练集的 270-300 天重叠
+    test_start = 300 - days
+    test_end = test_start + 65
+    test_df = test_df.iloc[test_start:test_end].copy()
 
     return train_df, test_df
 
@@ -158,16 +161,21 @@ def run_single_benchmark(config: Dict) -> Dict:
     # 1. 加载基础数据集
     X, y = load_base_dataset(config["base"])
 
-    # 2. 分割数据集
-    from sklearn.model_selection import train_test_split
+    # 2. 分割数据集（时序数据特殊处理）
+    if config["base"] == "synthetic" and config["inject"] == "temporal_overlap":
+        # 时序数据不使用 train_test_split，直接按时间分割
+        train_df = pd.concat([X, y], axis=1).reset_index(drop=True)
+        test_df = train_df.copy()  # 先复制，后面会重新切片
+    else:
+        from sklearn.model_selection import train_test_split
 
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.3, random_state=42
-    )
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=0.3, random_state=42
+        )
 
-    # 合并特征和标签
-    train_df = pd.concat([X_train, y_train], axis=1).reset_index(drop=True)
-    test_df = pd.concat([X_test, y_test], axis=1).reset_index(drop=True)
+        # 合并特征和标签
+        train_df = pd.concat([X_train, y_train], axis=1).reset_index(drop=True)
+        test_df = pd.concat([X_test, y_test], axis=1).reset_index(drop=True)
 
     # 3. 注入泄露
     if config["inject"] == "exact_overlap":
@@ -187,8 +195,12 @@ def run_single_benchmark(config: Dict) -> Dict:
 
     # 4. 运行检测
     print(f"训练集: {train_df.shape}, 测试集: {test_df.shape}")
+    
+    # 检查测试集是否为空
+    if len(test_df) == 0:
+        raise ValueError("test_df 不能为空")
 
-    detection_config = leakshield.DetectionConfig()
+    detection_config = leakshield.DetectionConfig(n_jobs=1)  # 禁用并行避免卡住
     if config["inject"] == "temporal_overlap":
         detection_config.timestamp_col = "timestamp"
 
