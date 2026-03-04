@@ -1,0 +1,292 @@
+{
+  "metadata": {
+    "timestamp": "2026-03-04 13:42:42",
+    "python_version": "3.14.0",
+    "leakshield_version": "0.3.0",
+    "dependencies": {
+      "pandas": "3.0.1",
+      "numpy": "2.3.5",
+      "scipy": "1.16.3",
+      "scikit-learn": "1.8.0"
+    }
+  },
+  "results": [
+    {
+      "name": "iris_L4_10pct",
+      "base_dataset": "iris",
+      "inject_type": "exact_overlap",
+      "expected_level": "high",
+      "detected_level": "high",
+      "match": true,
+      "elapsed_time": 0.7797744274139404,
+      "num_items": 6,
+      "items": [
+        {
+          "type": "L4_exact_duplicate",
+          "level": "high",
+          "score": 0.7555555555555555
+        },
+        {
+          "type": "L4_near_duplicate",
+          "level": "high",
+          "score": 0.7055555555555556
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.6643306163372527
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.5178160330139854
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "medium",
+          "score": 0.75
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "medium",
+          "score": 0.75
+        }
+      ]
+    },
+    {
+      "name": "iris_L4_1pct",
+      "base_dataset": "iris",
+      "inject_type": "exact_overlap",
+      "expected_level": "low",
+      "detected_level": "low",
+      "match": true,
+      "elapsed_time": 0.6840128898620605,
+      "num_items": 6,
+      "items": [
+        {
+          "type": "L4_exact_duplicate",
+          "level": "medium",
+          "score": 0.39444444444444443
+        },
+        {
+          "type": "L4_near_duplicate",
+          "level": "medium",
+          "score": 0.34444444444444444
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.6558022662815908
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.5375329344193387
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "medium",
+          "score": 0.75
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "medium",
+          "score": 0.75
+        }
+      ]
+    },
+    {
+      "name": "cancer_L5",
+      "base_dataset": "breast_cancer",
+      "inject_type": "label_as_feature",
+      "expected_level": "high",
+      "detected_level": "high",
+      "match": true,
+      "elapsed_time": 5.665383338928223,
+      "num_items": 14,
+      "items": [
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.46457539011688864
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.47881470558332884
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.44535178499565864
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4455752581428825
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.44388764919576107
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4344731394891932
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4329830087821033
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4789440274021842
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4334480063172139
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.44101971164131626
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.45359213636791385
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.43475700252995214
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4532330053122815
+        },
+        {
+          "type": "L5_label_leakage",
+          "level": "high",
+          "score": 0.95
+        }
+      ]
+    },
+    {
+      "name": "diabetes_L1",
+      "base_dataset": "diabetes",
+      "inject_type": "global_scaling",
+      "expected_level": "medium",
+      "detected_level": "medium",
+      "match": true,
+      "elapsed_time": 0.3045525550842285,
+      "num_items": 8,
+      "items": [
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4423678856570143
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "high",
+          "score": 0.8050484427017346
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.43985861748778426
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.443934842555653
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4476058186471896
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4537130172164701
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.4571755296151276
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "high",
+          "score": 0.8073412523485975
+        }
+      ]
+    },
+    {
+      "name": "timeseries_L6",
+      "base_dataset": "synthetic",
+      "inject_type": "temporal_overlap",
+      "expected_level": "high",
+      "detected_level": "high",
+      "match": true,
+      "elapsed_time": 0.5297675132751465,
+      "num_items": 3,
+      "items": [
+        {
+          "type": "L4_exact_duplicate",
+          "level": "high",
+          "score": 0.9
+        },
+        {
+          "type": "L4_near_duplicate",
+          "level": "high",
+          "score": 0.85
+        },
+        {
+          "type": "L6_temporal_leakage",
+          "level": "high",
+          "score": 0.9
+        }
+      ]
+    },
+    {
+      "name": "wine_clean",
+      "base_dataset": "wine",
+      "inject_type": null,
+      "expected_level": "clean",
+      "detected_level": "clean",
+      "match": true,
+      "elapsed_time": 2.1394386291503906,
+      "num_items": 4,
+      "items": [
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.5124425321367004
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.5186365082979402
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.5275533522623728
+        },
+        {
+          "type": "L1_distribution_shift",
+          "level": "medium",
+          "score": 0.563964829080372
+        }
+      ]
+    }
+  ]
+}
