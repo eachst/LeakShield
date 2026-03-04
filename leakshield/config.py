@@ -13,9 +13,13 @@ class DetectionConfig:
     # 引擎开关
     enable_hash: bool = True
     enable_mdf: bool = True
+    enable_image: bool = True  # 图像检测引擎（需要安装 Pillow）
 
     # Hash 引擎参数
     hash_similarity_threshold: float = 0.9  # MinHash 相似度阈值
+
+    # 图像引擎参数
+    image_similarity_threshold: int = 5  # 感知哈希汉明距离阈值（0-64，越小越相似）
 
     # MDF 引擎参数（第二阶段）
     wasserstein_high: float = 0.20  # Wasserstein 距离高风险阈值（提高以减少误报）

@@ -20,14 +20,18 @@ wheels/
 .installed.cfg
 *.egg
 
+# Virtual environments
+venv/
+ENV/
+env/
+
 # Testing
 .pytest_cache/
 .coverage
 htmlcov/
 .tox/
-.hypothesis/
 
-# IDEs
+# IDE
 .vscode/
 .idea/
 *.swp
@@ -39,13 +43,12 @@ htmlcov/
 Thumbs.db
 
 # Project specific
-*.log
-*.csv
-*.xlsx
 *.docx
-~$*
-
-# Reports (exclude generated reports, keep documentation)
+demo*.py
+check_image_leakage.py
 plant_disease_leakage_report.md
-leakage_report_*.md
-
+ENVIRONMENT_*.md
+STATUS_REPORT.md
+TASK_COMPLETION_SUMMARY.md
+LEAKAGE_DETECTION_SUMMARY.md
+IMAGE_LEAKAGE_DETECTION.md

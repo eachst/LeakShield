@@ -54,7 +54,36 @@ def test_overall_level_clean_when_no_items():
 
 
 def test_overall_level_high():
-    """高风险项应设置综合等级为 high"""
+    """多个高风险项（真正泄露）应设置综合等级为 high"""
+    items = [
+        LeakageItem(
+            leakage_type="L4_exact_duplicate",
+            taxonomy_ref="Kapoor & Narayanan 2023, Type 4",
+            risk_level="high",
+            risk_score=0.85,
+            affected_count=10,
+            affected_ratio=0.1,
+            detail="测试1",
+            fix_hint="修复1",
+        ),
+        LeakageItem(
+            leakage_type="L4_near_duplicate",
+            taxonomy_ref="Kapoor & Narayanan 2023, Type 4",
+            risk_level="high",
+            risk_score=0.80,
+            affected_count=8,
+            affected_ratio=0.08,
+            detail="测试2",
+            fix_hint="修复2",
+        ),
+    ]
+    result = LeakageResult(items=items)
+    assert result.overall_level == "high"
+    assert result.overall_score == 0.85
+
+
+def test_overall_level_medium():
+    """单个高风险项应设置综合等级为 medium"""
     item = LeakageItem(
         leakage_type="L4_exact_duplicate",
         taxonomy_ref="Kapoor & Narayanan 2023, Type 4",
@@ -66,42 +95,56 @@ def test_overall_level_high():
         fix_hint="修复",
     )
     result = LeakageResult(items=[item])
-    assert result.overall_level == "high"
+    assert result.overall_level == "medium"
     assert result.overall_score == 0.85
 
 
-def test_overall_level_medium():
-    """中风险项应设置综合等级为 medium"""
-    item = LeakageItem(
-        leakage_type="L4_exact_duplicate",
-        taxonomy_ref="Kapoor & Narayanan 2023, Type 4",
-        risk_level="medium",
-        risk_score=0.5,
-        affected_count=5,
-        affected_ratio=0.05,
-        detail="测试",
-        fix_hint="修复",
-    )
-    result = LeakageResult(items=[item])
-    assert result.overall_level == "medium"
+def test_overall_level_low():
+    """少量 medium 级别真正泄露应设置综合等级为 low"""
+    items = [
+        LeakageItem(
+            leakage_type="L4_exact_duplicate",
+            taxonomy_ref="Kapoor & Narayanan 2023, Type 4",
+            risk_level="medium",
+            risk_score=0.5,
+            affected_count=5,
+            affected_ratio=0.05,
+            detail="测试1",
+            fix_hint="修复1",
+        ),
+        LeakageItem(
+            leakage_type="L4_near_duplicate",
+            taxonomy_ref="Kapoor & Narayanan 2023, Type 4",
+            risk_level="medium",
+            risk_score=0.45,
+            affected_count=4,
+            affected_ratio=0.04,
+            detail="测试2",
+            fix_hint="修复2",
+        ),
+    ]
+    result = LeakageResult(items=items)
+    assert result.overall_level == "low"
     assert result.overall_score == 0.5
 
 
-def test_overall_level_low():
-    """低风险项应设置综合等级为 low"""
-    item = LeakageItem(
-        leakage_type="L4_exact_duplicate",
-        taxonomy_ref="Kapoor & Narayanan 2023, Type 4",
-        risk_level="low",
-        risk_score=0.1,
-        affected_count=1,
-        affected_ratio=0.01,
-        detail="测试",
-        fix_hint="修复",
-    )
-    result = LeakageResult(items=[item])
-    assert result.overall_level == "low"
-    assert result.overall_score == 0.1
+def test_overall_level_clean_with_few_medium():
+    """少量 medium（<=4）应判定为 clean（可能是随机波动）"""
+    items = [
+        LeakageItem(
+            leakage_type="L1_distribution_shift",
+            taxonomy_ref="Kapoor & Narayanan 2023, Type 1",
+            risk_level="medium",
+            risk_score=0.4,
+            affected_count=3,
+            affected_ratio=0.03,
+            detail="测试",
+            fix_hint="修复",
+        ),
+    ]
+    result = LeakageResult(items=items)
+    assert result.overall_level == "clean"
+    assert result.overall_score == 0.4
 
 
 def test_overall_score_is_max_of_items():
@@ -110,10 +153,10 @@ def test_overall_score_is_max_of_items():
         LeakageItem(
             leakage_type="L4_exact_duplicate",
             taxonomy_ref="Kapoor & Narayanan 2023, Type 4",
-            risk_level="low",
-            risk_score=0.1,
-            affected_count=1,
-            affected_ratio=0.01,
+            risk_level="high",
+            risk_score=0.85,
+            affected_count=10,
+            affected_ratio=0.1,
             detail="测试1",
             fix_hint="修复1",
         ),
@@ -121,9 +164,9 @@ def test_overall_score_is_max_of_items():
             leakage_type="L4_near_duplicate",
             taxonomy_ref="Kapoor & Narayanan 2023, Type 4",
             risk_level="high",
-            risk_score=0.85,
-            affected_count=10,
-            affected_ratio=0.1,
+            risk_score=0.80,
+            affected_count=8,
+            affected_ratio=0.08,
             detail="测试2",
             fix_hint="修复2",
         ),

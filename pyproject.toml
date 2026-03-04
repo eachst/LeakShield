@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "leakshield"
-version = "0.2.0"
+version = "0.3.0"
 description = "轻量级机器学习数据泄露检测库，基于 Kapoor & Narayanan 2023 分类法"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -47,6 +47,9 @@ api = [
     "fastapi>=0.100.0",
     "uvicorn>=0.23.0",
     "python-multipart>=0.0.6",
+]
+image = [
+    "Pillow>=9.0.0",
 ]
 
 [project.scripts]

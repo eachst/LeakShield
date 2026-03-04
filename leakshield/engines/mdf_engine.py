@@ -296,12 +296,14 @@ class MDFEngine(BaseEngine):
 
         # 风险判断 - 只检测异常强的关联（可能是泄露）
         # 正常的特征-标签关联不应该被标记为泄露
+        # 使用极其严格的阈值：相关系数 > 0.98（几乎完全相同）
         if mi > config.mi_high and p_value < config.p_value_threshold:
-            # 额外检查：计算相关系数，只有非常强的关联才报告
+            # 额外检查：计算相关系数，只有几乎完全相同的特征才报告
             correlation = np.corrcoef(X.flatten(), y)[0, 1]
             
-            # 只有相关系数 > 0.9 或 MI > 0.8 才认为是泄露
-            if abs(correlation) > 0.9 or mi > 0.8:
+            # 只有相关系数 > 0.98（几乎完全相同）才认为是泄露
+            # 这样可以避免将正常的强相关特征误判为泄露
+            if abs(correlation) > 0.98:
                 return LeakageItem(
                     leakage_type="L5_label_leakage",
                     taxonomy_ref="Kapoor & Narayanan 2023, Type 5",
@@ -309,9 +311,9 @@ class MDFEngine(BaseEngine):
                     risk_score=min(0.95, 0.7 + mi * 0.5),
                     affected_count=len(X),
                     affected_ratio=1.0,
-                    detail=f"特征 '{feature_col}' 与标签存在异常强关联 "
+                    detail=f"特征 '{feature_col}' 与标签几乎完全相同 "
                     f"(MI={mi:.4f}, corr={correlation:.4f}, p={p_value:.4e})",
-                    fix_hint="请确认该特征在实际预测时是否可获得，或是否与标签完全相同",
+                    fix_hint="请确认该特征是否就是标签本身或其直接变换",
                 )
 
         return None

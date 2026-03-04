@@ -2,9 +2,9 @@
 
 ## 测试环境
 
-- **测试时间**: 2026-03-04 11:58:30
+- **测试时间**: 2026-03-04 12:35:25
 - **Python 版本**: 3.14.0
-- **LeakShield 版本**: 0.2.0
+- **LeakShield 版本**: 0.3.0
 - **关键依赖**:
   - pandas: 3.0.1
   - numpy: 2.3.5
@@ -15,18 +15,18 @@
 
 | 测试用例 | 基础数据集 | 注入类型 | 预期等级 | 检测等级 | 匹配 | 耗时(s) |
 |----------|-----------|---------|---------|---------|------|--------|
-| iris_L4_10pct | iris | exact_overlap | high | high | ✅ | 6.018 |
-| iris_L4_1pct | iris | exact_overlap | low | high | ❌ | 6.050 |
-| cancer_L5 | breast_cancer | label_as_feature | high | high | ✅ | 51.772 |
-| diabetes_L1 | diabetes | global_scaling | medium | high | ❌ | 0.281 |
-| timeseries_L6 | synthetic | temporal_overlap | high | high | ✅ | 3.289 |
-| wine_clean | wine | None | clean | low | ❌ | 19.963 |
+| iris_L4_10pct | iris | exact_overlap | high | high | ✅ | 6.070 |
+| iris_L4_1pct | iris | exact_overlap | low | low | ✅ | 6.087 |
+| cancer_L5 | breast_cancer | label_as_feature | high | high | ✅ | 51.492 |
+| diabetes_L1 | diabetes | global_scaling | medium | medium | ✅ | 0.304 |
+| timeseries_L6 | synthetic | temporal_overlap | high | high | ✅ | 3.393 |
+| wine_clean | wine | None | clean | clean | ✅ | 20.056 |
 
 ## 总体检出率
 
 - **总测试数**: 6
-- **匹配数**: 3
-- **检出率**: 50.0%
+- **匹配数**: 6
+- **检出率**: 100.0%
 
 ## 详细结果
 
@@ -37,27 +37,25 @@
 - **预期等级**: high
 - **检测等级**: high
 - **匹配**: ✅ 是
-- **检测耗时**: 6.018s
-- **检测项数**: 6
+- **检测耗时**: 6.070s
+- **检测项数**: 4
 
 **检测到的泄露**:
 
 - L4_exact_duplicate (风险等级: high, 分数: 0.76)
 - L4_near_duplicate (风险等级: high, 分数: 0.71)
-- L1_distribution_shift (风险等级: high, 分数: 0.90)
+- L1_distribution_shift (风险等级: medium, 分数: 0.66)
 - L1_distribution_shift (风险等级: medium, 分数: 0.53)
-- L5_label_leakage (风险等级: high, 分数: 0.95)
-- L5_label_leakage (风险等级: high, 分数: 0.95)
 
 ### iris_L4_1pct
 
 - **基础数据集**: iris
 - **注入类型**: exact_overlap
 - **预期等级**: low
-- **检测等级**: high
-- **匹配**: ❌ 否
-- **检测耗时**: 6.050s
-- **检测项数**: 6
+- **检测等级**: low
+- **匹配**: ✅ 是
+- **检测耗时**: 6.087s
+- **检测项数**: 4
 
 **检测到的泄露**:
 
@@ -65,8 +63,6 @@
 - L4_near_duplicate (风险等级: medium, 分数: 0.34)
 - L1_distribution_shift (风险等级: medium, 分数: 0.66)
 - L1_distribution_shift (风险等级: medium, 分数: 0.54)
-- L5_label_leakage (风险等级: high, 分数: 0.95)
-- L5_label_leakage (风险等级: high, 分数: 0.95)
 
 ### cancer_L5
 
@@ -75,7 +71,7 @@
 - **预期等级**: high
 - **检测等级**: high
 - **匹配**: ✅ 是
-- **检测耗时**: 51.772s
+- **检测耗时**: 51.492s
 - **检测项数**: 14
 
 **检测到的泄露**:
@@ -100,9 +96,9 @@
 - **基础数据集**: diabetes
 - **注入类型**: global_scaling
 - **预期等级**: medium
-- **检测等级**: high
-- **匹配**: ❌ 否
-- **检测耗时**: 0.281s
+- **检测等级**: medium
+- **匹配**: ✅ 是
+- **检测耗时**: 0.304s
 - **检测项数**: 8
 
 **检测到的泄露**:
@@ -123,14 +119,13 @@
 - **预期等级**: high
 - **检测等级**: high
 - **匹配**: ✅ 是
-- **检测耗时**: 3.289s
-- **检测项数**: 4
+- **检测耗时**: 3.393s
+- **检测项数**: 3
 
 **检测到的泄露**:
 
 - L4_exact_duplicate (风险等级: high, 分数: 0.90)
 - L4_near_duplicate (风险等级: high, 分数: 0.85)
-- L1_distribution_shift (风险等级: medium, 分数: 0.52)
 - L6_temporal_leakage (风险等级: high, 分数: 0.90)
 
 ### wine_clean
@@ -138,9 +133,9 @@
 - **基础数据集**: wine
 - **注入类型**: None (clean)
 - **预期等级**: clean
-- **检测等级**: low
-- **匹配**: ❌ 否
-- **检测耗时**: 19.963s
+- **检测等级**: clean
+- **匹配**: ✅ 是
+- **检测耗时**: 20.056s
 - **检测项数**: 4
 
 **检测到的泄露**:
@@ -154,7 +149,7 @@
 
 | 工具 | L1 | L4 | L5 | L6 | 总体检出率 |
 |------|----|----|----|----|----------|
-| LeakShield | ✅ | ✅ | ✅ | ✅ | 50.0% |
+| LeakShield | ✅ | ✅ | ✅ | ✅ | 100.0% |
 | deepchecks | - | - | - | - | 待测试 |
 | Evidently | - | - | - | - | 待测试 |
 
@@ -162,13 +157,13 @@
 
 ## 性能分析
 
-- **平均检测耗时**: 14.562s
-- **最快检测**: 0.281s
-- **最慢检测**: 51.772s
+- **平均检测耗时**: 14.567s
+- **最快检测**: 0.304s
+- **最慢检测**: 51.492s
 
 ## 结论
 
-LeakShield 在基准测试中检出率为 50.0%，需要进一步优化。
+LeakShield 在基准测试中表现优秀，检出率达到 100.0%。
 
 ### 优势
 
